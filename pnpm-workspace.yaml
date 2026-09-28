@@ -1,0 +1,15 @@
+packages:
+  - apps/*
+  - packages/*
+
+# One place to pin versions shared across packages; packages reference them as "catalog:".
+catalog:
+  '@types/node': ^22.20.4
+  eslint: ^10.11.0
+  typescript: ~6.0.3
+  vitest: ^5.0.2
+
+# Dependency install scripts are blocked by default; esbuild (used by tsx and Vitest)
+# needs its script to fetch a platform-specific binary.
+allowBuilds:
+  esbuild: true

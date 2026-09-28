@@ -1,0 +1,143 @@
+/*
+ * Design tokens: "sunset holiday", kept to one accent plus one supporting colour.
+ * Components only read var(--…), so dark mode ("night flight") is just a token swap.
+ */
+:root {
+  color-scheme: light;
+
+  --bg: #fff6ee;
+  --paper: #ffffff;
+  --paper-sunk: #fff1e6;
+  --glass: rgb(255 250 245 / 0.72);
+  --border: #f1e0d2;
+  --border-strong: #e3c9b5;
+  --ink: #1f1a3d;
+  --ink-soft: #4b4570;
+  --muted: #7d7699;
+
+  /* One accent (sunset coral → pink), one supporting colour (teal), the rest neutral. */
+  --coral: #f2542d;
+  --coral-deep: #d63d17;
+  --pink: #ec3d7f;
+  --teal: #0a9a8c;
+  --accent: var(--coral);
+  --accent-wash: #ffe6dc;
+  --on-accent: #ffffff;
+  --danger: #c2261d;
+  --danger-wash: #ffe5e2;
+
+  /* Starts dark enough for white text on top. */
+  --grad-sunset: linear-gradient(120deg, #f0561c 0%, #e5286c 100%);
+  --grad-text: linear-gradient(100deg, #ff7a1a 0%, #f0266f 100%);
+
+  --glow-warm: rgb(255 150 90 / 0.32);
+  --glow-pink: rgb(255 90 140 / 0.16);
+  --glow-cool: rgb(20 180 165 / 0.12);
+
+  --shadow-sm: 0 1px 2px rgb(60 30 80 / 0.06);
+  --shadow: 0 2px 4px rgb(60 30 80 / 0.04), 0 12px 32px -12px rgb(60 30 80 / 0.22);
+  --grain-opacity: 0.25;
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: var(--font-display), ui-serif, Georgia, 'Times New Roman', serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --bg: #110e26;
+    --paper: #1b1738;
+    --paper-sunk: #16132f;
+    --glass: rgb(17 14 38 / 0.7);
+    --border: #2d2854;
+    --border-strong: #423b73;
+    --ink: #f5f1ff;
+    --ink-soft: #d3cdef;
+    --muted: #a39cc9;
+
+    --coral: #ff7a52;
+    --coral-deep: #ff9571;
+    --pink: #ff5c9a;
+    --teal: #2dd4bf;
+    --accent: var(--coral);
+    --accent-wash: #3a1f2e;
+    --danger: #ff8d80;
+    --danger-wash: #3a1822;
+
+    --glow-warm: rgb(255 110 60 / 0.18);
+    --glow-pink: rgb(236 61 127 / 0.14);
+    --glow-cool: rgb(20 200 180 / 0.08);
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow: 0 2px 4px rgb(0 0 0 / 0.25), 0 14px 36px -12px rgb(0 0 0 / 0.6);
+    --grain-opacity: 0.12;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Paper grain: an SVG noise texture laid over everything, ignored by the mouse. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.2 0 0 0 0 0.3 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+  body::before {
+    mix-blend-mode: screen;
+  }
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-wash);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Respect the OS "reduce motion" setting everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.next/
+next-env.d.ts
+.turbo/
+coverage/
+*.tsbuildinfo
+.env*.local
+.DS_Store
+
+# Personal notes for Claude Code; kept out of the public repo.
+CLAUDE.md

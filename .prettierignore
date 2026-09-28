@@ -1,0 +1,8 @@
+pnpm-lock.yaml
+.next/
+dist/
+.turbo/
+coverage/
+
+# Hand-written by the author; not auto-formatted.
+CLAUDE.md
